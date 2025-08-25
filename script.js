@@ -1,53 +1,25 @@
+
 const token = "BrpkvYsCXZxnUXqa7zDn1dWrEfGMQrHs";
+const url = "https://blynk.cloud/external/api/get";
 
-async function getBlynkValue(pin) {
-  const url = `https://blynk.cloud/external/api/get?token=${token}&${pin}`;
-  const response = await fetch(url);
-  return await response.json();
-}
+async function fetchData() {
+  const endpoints = {
+    temp: "v1",
+    umidade: "v2",
+    nivel: "v3",
+    solo: "v4"
+  };
 
-function createChart(ctx, label, color) {
-  return new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [],
-      datasets: [{
-        label: label,
-        data: [],
-        borderColor: color,
-        fill: false
-      }]
+  for (let key in endpoints) {
+    try {
+      const res = await fetch(`${url}?token=${token}&${endpoints[key]}`);
+      const data = await res.text();
+      document.getElementById(key).innerText = key === "temp" ? `${data} °C` : `${data} %`;
+    } catch (e) {
+      document.getElementById(key).innerText = "--";
     }
-  });
-}
-
-const chartTemp = createChart(document.getElementById('chartTemp').getContext('2d'), "Temperatura", "red");
-const chartUmidade = createChart(document.getElementById('chartUmidade').getContext('2d'), "Umidade", "blue");
-const chartAgua = createChart(document.getElementById('chartAgua').getContext('2d'), "Nível da Água", "green");
-const chartSolo = createChart(document.getElementById('chartSolo').getContext('2d'), "Umidade do Solo", "brown");
-
-async function atualizar() {
-  const temp = await getBlynkValue("V1");
-  const umidade = await getBlynkValue("V2");
-  const agua = await getBlynkValue("V3");
-  const solo = await getBlynkValue("V4");
-
-  const agora = new Date().toLocaleTimeString();
-
-  function updateChart(chart, valor) {
-    chart.data.labels.push(agora);
-    chart.data.datasets[0].data.push(valor);
-    if(chart.data.labels.length > 10) {
-      chart.data.labels.shift();
-      chart.data.datasets[0].data.shift();
-    }
-    chart.update();
   }
-
-  updateChart(chartTemp, temp);
-  updateChart(chartUmidade, umidade);
-  updateChart(chartAgua, agua);
-  updateChart(chartSolo, solo);
 }
 
-setInterval(atualizar, 5000);
+fetchData();
+setInterval(fetchData, 5000);
