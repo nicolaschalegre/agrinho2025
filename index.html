@@ -1,47 +1,44 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAQUETE ESTAÇÃO CLIMA</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estação Clima Escolar</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <header>
-    <h1>MAQUETE ESTAÇÃO CLIMA</h1>
+    <h1>ESTAÇÃO CLIMA</h1>
     <nav>
-      <a href="index.html">Início</a>
       <a href="escola.html">Escola</a>
       <a href="alunos.html">Alunos</a>
       <a href="fotos.html">Fotos</a>
     </nav>
   </header>
 
-  <main>
-    <section class="card">
-      <h2>Temperatura (°C)</h2>
-      <canvas id="chartTemp"></canvas>
-    </section>
-
-    <section class="card">
-      <h2>Umidade do Ar (%)</h2>
-      <canvas id="chartUmidade"></canvas>
-    </section>
-
-    <section class="card">
-      <h2>Nível da Água (%)</h2>
-      <canvas id="chartAgua"></canvas>
-    </section>
-
-    <section class="card">
-      <h2>Umidade do Solo (%)</h2>
-      <canvas id="chartSolo"></canvas>
-    </section>
+  <main class="dashboard">
+    <div class="card">
+      <h2>Temperatura</h2>
+      <p id="temp">-- °C</p>
+    </div>
+    <div class="card">
+      <h2>Umidade do Ar</h2>
+      <p id="umidade">-- %</p>
+    </div>
+    <div class="card">
+      <h2>Nível da Água</h2>
+      <p id="nivel">-- %</p>
+    </div>
+    <div class="card">
+      <h2>Umidade do Solo</h2>
+      <p id="solo">-- %</p>
+    </div>
   </main>
 
   <footer>
-    <p>&copy; Agrinho 2025 Colégio Estadual Rachel Queiros - Ivaté PR</p>
+    <p>Projeto desenvolvido Para o concurso Agrinho 2025</p>
+    <p>Colégio Estadual Rachel De Queiroz Ivaté PR</p>
   </footer>
 
   <script src="script.js"></script>
